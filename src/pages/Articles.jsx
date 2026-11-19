@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
+import { useOutletContext } from "react-router";
 import { API_URL } from "../constants";
 import EtatRequete from "../components/EtatRequete";
 import BarreRecherche from "../components/BarreRecherche";
 import ListeArticles from "../components/ListeArticles";
 
 function Articles() {
+  const { favoris, toggleFavori } = useOutletContext();
   const [articles, setArticles] = useState([]);
   const [chargement, setChargement] = useState(true);
   const [erreur, setErreur] = useState(null);
   const [recherche, setRecherche] = useState("");
-  const [favoris, setFavoris] = useState([]); // provisoire : remonté dans le layout à l'étape 5
 
   useEffect(() => {
     const controller = new AbortController();
@@ -22,8 +23,7 @@ function Articles() {
         if (!res.ok) {
           throw new Error(`Le serveur a répondu ${res.status}`);
         }
-        const data = await res.json();
-        setArticles(data);
+        setArticles(await res.json());
         setErreur(null);
         setChargement(false);
       } catch (e) {
@@ -41,18 +41,9 @@ function Articles() {
     a.title.toLowerCase().includes(recherche.toLowerCase())
   );
 
-  function toggleFavori(id) {
-    if (favoris.includes(id)) {
-      setFavoris(favoris.filter((f) => f !== id));
-    } else {
-      setFavoris([...favoris, id]);
-    }
-  }
-
   return (
     <section>
       <h1>Articles</h1>
-      <p>Favoris : {favoris.length}</p>
       <BarreRecherche valeur={recherche} onChange={setRecherche} />
       <EtatRequete chargement={chargement} erreur={erreur}>
         <ListeArticles

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router";
 import { API_URL } from "../constants";
 import EtatRequete from "../components/EtatRequete";
 
-function Auteur({ id }) {
+function Auteur() {
+  const { id } = useParams();
   const [auteur, setAuteur] = useState(null);
   const [articles, setArticles] = useState([]);
   const [chargement, setChargement] = useState(true);
@@ -50,7 +52,9 @@ function Auteur({ id }) {
           <h2>Ses articles</h2>
           <ul>
             {articles.map((a) => (
-              <li key={a.id}>{a.title}</li>
+              <li key={a.id}>
+                <Link to={`/articles/${a.id}`}>{a.title}</Link>
+              </li>
             ))}
           </ul>
         </section>

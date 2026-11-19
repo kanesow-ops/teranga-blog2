@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 function ArticleCard({ article, estFavori, onToggleFavori }) {
   const extrait =
     article.body.length > 100
@@ -6,9 +8,11 @@ function ArticleCard({ article, estFavori, onToggleFavori }) {
 
   return (
     <article>
-      <h3>{article.title}</h3>
+      <h3>
+        <Link to={`/articles/${article.id}`}>{article.title}</Link>
+      </h3>
       <p>{extrait}</p>
-      <button onClick={() => onToggleFavori(article.id)}>
+      <button onClick={() => onToggleFavori(article)}>
         {estFavori ? "Retirer des favoris" : "Ajouter aux favoris"}
       </button>
     </article>

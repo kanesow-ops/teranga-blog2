@@ -1,47 +1,47 @@
-import { useState } from "react";
-import { articlesDeTest, commentairesDeTest } from "../donnees-test";
-import BarreRecherche from "../components/BarreRecherche";
+import { useEffect, useState } from "react";
+import { useOutletContext } from "react-router";
+import { API_URL } from "../constants";
+import EtatRequete from "../components/EtatRequete";
 import ListeArticles from "../components/ListeArticles";
-import CommentaireForm from "../components/CommentaireForm";
-import ListeCommentaires from "../components/ListeCommentaires";
 
 function Accueil() {
-  const [favoris, setFavoris] = useState([]);
-  const [recherche, setRecherche] = useState("");
-  const [commentaires, setCommentaires] = useState(commentairesDeTest);
+  const { favoris, toggleFavori } = useOutletContext();
+  const [articles, setArticles] = useState([]);
+  const [chargement, setChargement] = useState(true);
+  const [erreur, setErreur] = useState(null);
 
-  const articlesFiltres = articlesDeTest.filter((a) =>
-    a.title.toLowerCase().includes(recherche.toLowerCase())
-  );
+  useEffect(() => {
+    const controller = new AbortController();
 
-  function toggleFavori(id) {
-    if (favoris.includes(id)) {
-      setFavoris(favoris.filter((f) => f !== id));
-    } else {
-      setFavoris([...favoris, id]);
+    async function charger() {
+      try {
+        const res = await fetch(`${API_URL}/posts?_limit=3`, {
+          signal: controller.signal,
+        });
+        if (!res.ok) throw new Error(`Le serveur a répondu ${res.status}`);
+        setArticles(await res.json());
+        setChargement(false);
+      } catch (e) {
+        if (e.name === "AbortError") return;
+        setErreur(e.message);
+        setChargement(false);
+      }
     }
-  }
 
-  function ajouterCommentaire({ name, body }) {
-    const nouveau = { id: Date.now(), postId: 1, name, body };
-    setCommentaires([...commentaires, nouveau]);
-  }
+    charger();
+    return () => controller.abort();
+  }, []);
 
   return (
     <section>
-      <h1>Accueil</h1>
-      <p>Favoris : {favoris.length}</p>
-
-      <BarreRecherche valeur={recherche} onChange={setRecherche} />
-      <ListeArticles
-        articles={articlesFiltres}
-        favoris={favoris}
-        onToggleFavori={toggleFavori}
-      />
-
-      <h2>Commentaires</h2>
-      <ListeCommentaires commentaires={commentaires} />
-      <CommentaireForm onAjouter={ajouterCommentaire} />
+      <h1>Derniers articles</h1>
+      <EtatRequete chargement={chargement} erreur={erreur}>
+        <ListeArticles
+          articles={articles}
+          favoris={favoris}
+          onToggleFavori={toggleFavori}
+        />
+      </EtatRequete>
     </section>
   );
 }

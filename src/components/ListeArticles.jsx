@@ -11,7 +11,7 @@ function ListeArticles({ articles, favoris, onToggleFavori }) {
         <ArticleCard
           key={article.id}
           article={article}
-          estFavori={favoris.includes(article.id)}
+          estFavori={favoris.some((f) => f.id === article.id)}
           onToggleFavori={onToggleFavori}
         />
       ))}

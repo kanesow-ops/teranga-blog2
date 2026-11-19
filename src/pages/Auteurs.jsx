@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 import { API_URL } from "../constants";
 import EtatRequete from "../components/EtatRequete";
 
@@ -37,7 +38,8 @@ function Auteurs() {
         <ul>
           {auteurs.map((a) => (
             <li key={a.id}>
-              <strong>{a.name}</strong> (@{a.username}) : {a.company.name}
+              <Link to={`/auteurs/${a.id}`}>{a.name}</Link> (@{a.username}) :{" "}
+              {a.company.name}
             </li>
           ))}
         </ul>
