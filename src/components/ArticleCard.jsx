@@ -1,5 +1,8 @@
 function ArticleCard({ article }) {
-  const extrait = article.body.slice(0, 100) + "…";
+  const extrait =
+    article.body.length > 100
+      ? article.body.slice(0, 100) + "…"
+      : article.body;
 
   return (
     <article>

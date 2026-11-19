@@ -1,13 +1,13 @@
 import ArticleCard from "../components/ArticleCard";
-import { articlesTest } from "../donnees-test";
+import { articlesDeTest } from "../donnees-test";
 
 function Accueil() {
   return (
     <section>
       <h1>Accueil</h1>
-      <ArticleCard article={articlesTest[0]} />
-      <ArticleCard article={articlesTest[1]} />
-      <ArticleCard article={articlesTest[2]} />
+      <ArticleCard article={articlesDeTest[0]} />
+      <ArticleCard article={articlesDeTest[1]} />
+      <ArticleCard article={articlesDeTest[2]} />
     </section>
   );
 }
