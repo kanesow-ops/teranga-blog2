@@ -1,9 +1,18 @@
 import { useState } from "react";
-import ArticleCard from "../components/ArticleCard";
-import { articlesDeTest } from "../donnees-test";
+import { articlesDeTest, commentairesDeTest } from "../donnees-test";
+import BarreRecherche from "../components/BarreRecherche";
+import ListeArticles from "../components/ListeArticles";
+import CommentaireForm from "../components/CommentaireForm";
+import ListeCommentaires from "../components/ListeCommentaires";
 
 function Accueil() {
   const [favoris, setFavoris] = useState([]);
+  const [recherche, setRecherche] = useState("");
+  const [commentaires, setCommentaires] = useState(commentairesDeTest);
+
+  const articlesFiltres = articlesDeTest.filter((a) =>
+    a.title.toLowerCase().includes(recherche.toLowerCase())
+  );
 
   function toggleFavori(id) {
     if (favoris.includes(id)) {
@@ -13,25 +22,26 @@ function Accueil() {
     }
   }
 
+  function ajouterCommentaire({ name, body }) {
+    const nouveau = { id: Date.now(), postId: 1, name, body };
+    setCommentaires([...commentaires, nouveau]);
+  }
+
   return (
     <section>
       <h1>Accueil</h1>
       <p>Favoris : {favoris.length}</p>
-      <ArticleCard
-        article={articlesDeTest[0]}
-        estFavori={favoris.includes(articlesDeTest[0].id)}
+
+      <BarreRecherche valeur={recherche} onChange={setRecherche} />
+      <ListeArticles
+        articles={articlesFiltres}
+        favoris={favoris}
         onToggleFavori={toggleFavori}
       />
-      <ArticleCard
-        article={articlesDeTest[1]}
-        estFavori={favoris.includes(articlesDeTest[1].id)}
-        onToggleFavori={toggleFavori}
-      />
-      <ArticleCard
-        article={articlesDeTest[2]}
-        estFavori={favoris.includes(articlesDeTest[2].id)}
-        onToggleFavori={toggleFavori}
-      />
+
+      <h2>Commentaires</h2>
+      <ListeCommentaires commentaires={commentaires} />
+      <CommentaireForm onAjouter={ajouterCommentaire} />
     </section>
   );
 }
