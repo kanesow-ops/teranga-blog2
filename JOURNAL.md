@@ -1,0 +1,5 @@
+# Journal de bord : utilisation de l'IA
+
+| Date | Question posée | Ce que j'ai retenu | Ce que j'ai écrit moi-même |
+| 19/11/2026 | Étape 1 : comment faire le composant `ArticleCard` et l'afficher trois fois sur `Accueil` | Un composant reçoit un seul objet `article` en prop. Les props sont en lecture seule : `extrait` est une nouvelle valeur calculée avec `slice`, `article` n'est jamais modifié. L'export nommé (`{ articlesDeTest }`) demande des accolades, l'export par défaut (`ArticleCard`) n'en demande pas. | L'IA m'a proposé le code de `ArticleCard.jsx` et `Accueil.jsx`. |
+| 19/11/2026 | Comment faire un commit, et pourquoi `git add.` ne marche pas | Il faut un espace : `git add .`. Un commit se fait en trois temps : `add`, `commit -m`, `push`. | J'ai déplacé `JOURNAL.md` à la racine et fait le commit de l'étape  moi-même. |j'ai regarder une video sur youtube je metterez le lien 
