@@ -50,9 +50,9 @@ function Auteur() {
             @{auteur.username} · {auteur.email} · {auteur.company.name}
           </p>
           <h2>Ses articles</h2>
-          <ul>
+          <ul className="liste-simple">
             {articles.map((a) => (
-              <li key={a.id}>
+              <li key={a.id} className="ligne">
                 <Link to={`/articles/${a.id}`}>{a.title}</Link>
               </li>
             ))}

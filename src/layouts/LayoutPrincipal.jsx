@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet } from "react-router";
 
 function LayoutPrincipal() {
   const [favoris, setFavoris] = useState([]);
+  const [connecte, setConnecte] = useState(false);
 
   function toggleFavori(article) {
     if (favoris.some((f) => f.id === article.id)) {
@@ -14,19 +15,22 @@ function LayoutPrincipal() {
 
   return (
     <>
-      <header>
-        <Link to="/">
-          <img src="/logo-teranga-blog.png" alt="Teranga Blog" height="40" />
+      <header className="site-header">
+        <Link to="/" className="logo-lien">
+          <img src="/logo-teranga-blog.png" alt="Teranga Blog" className="logo" />
         </Link>
-        <nav>
-          <NavLink to="/" end>Accueil</NavLink>
-          <NavLink to="/articles">Articles</NavLink>
-          <NavLink to="/auteurs">Auteurs</NavLink>
-          <NavLink to="/favoris">Favoris ({favoris.length})</NavLink>
+        <nav className="nav-principal">
+          <NavLink to="/" end className="nav-lien">Accueil</NavLink>
+          <NavLink to="/articles" className="nav-lien">Articles</NavLink>
+          <NavLink to="/auteurs" className="nav-lien">Auteurs</NavLink>
+          <NavLink to="/favoris" className="nav-lien">
+            Favoris ({favoris.length})
+          </NavLink>
+          <NavLink to="/mon-espace" className="nav-lien">Mon espace</NavLink>
         </nav>
       </header>
-      <main>
-        <Outlet context={{ favoris, toggleFavori }} />
+      <main className="contenu">
+        <Outlet context={{ favoris, toggleFavori, connecte, setConnecte }} />
       </main>
     </>
   );

@@ -35,11 +35,13 @@ function Auteurs() {
     <section>
       <h1>Auteurs</h1>
       <EtatRequete chargement={chargement} erreur={erreur}>
-        <ul>
+        <ul className="liste-simple">
           {auteurs.map((a) => (
-            <li key={a.id}>
-              <Link to={`/auteurs/${a.id}`}>{a.name}</Link> (@{a.username}) :{" "}
-              {a.company.name}
+            <li key={a.id} className="ligne">
+              <span>
+                <Link to={`/auteurs/${a.id}`}>{a.name}</Link> (@{a.username})
+              </span>
+              <span>{a.company.name}</span>
             </li>
           ))}
         </ul>

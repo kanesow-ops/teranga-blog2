@@ -51,7 +51,7 @@ function Article() {
   return (
     <EtatRequete chargement={chargement} erreur={erreur}>
       {article && (
-        <article>
+        <article className="article-detail">
           <h1>{article.title}</h1>
           <p>{article.body}</p>
 

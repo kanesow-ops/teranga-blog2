@@ -7,7 +7,7 @@ function Favoris() {
     return (
       <section>
         <h1>Favoris</h1>
-        <p>Aucun favori pour le moment.</p>
+        <p className="message-etat">Aucun favori pour le moment.</p>
       </section>
     );
   }
@@ -15,11 +15,16 @@ function Favoris() {
   return (
     <section>
       <h1>Favoris ({favoris.length})</h1>
-      <ul>
+      <ul className="liste-simple">
         {favoris.map((f) => (
-          <li key={f.id}>
+          <li key={f.id} className="ligne">
             <Link to={`/articles/${f.id}`}>{f.title}</Link>
-            <button onClick={() => toggleFavori(f)}>Retirer</button>
+            <button
+              className="bouton bouton-secondaire"
+              onClick={() => toggleFavori(f)}
+            >
+              Retirer
+            </button>
           </li>
         ))}
       </ul>
