@@ -1,34 +1,289 @@
-/* Feuille de style de départ : le projet évalue React, pas le CSS.
-   Tu peux l'utiliser telle quelle, la modifier, ou demander à une IA de réécrire tout le CSS
-   et de placer les classes (className) dans ton JSX : c'est la seule aide complète autorisée. */
 :root {
-  --fond: #f7f8fa;
-  --texte: #1f1f1f;
-  --discret: #666666;
-  --accent: #0b6e4f;
-  --bord: #dddddd;
-  --erreur: #b3261e;
+  --marine: #0b1f3a;
+  --orange: #f26b0a;
+  --orange-fonce: #c9560a;
+  --fond: #f5f7fa;
+  --carte: #ffffff;
+  --texte: #1c2733;
+  --gris: #6b7785;
+  --bordure: #e1e6ec;
+  --rayon: 10px;
 }
-* { box-sizing: border-box; }
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: system-ui, Arial, sans-serif;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   background: var(--fond);
   color: var(--texte);
   line-height: 1.6;
 }
-.conteneur { max-width: 960px; margin: 0 auto; padding: 1.5rem 1rem; }
-.barre-nav { background: #fff; border-bottom: 1px solid var(--bord); }
-.barre-nav .conteneur { display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
-.barre-nav a { color: var(--texte); text-decoration: none; padding: .25rem 0; }
-.barre-nav a.active { color: var(--accent); border-bottom: 2px solid var(--accent); font-weight: 600; }
-.grille { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
-.carte { background: #fff; border: 1px solid var(--bord); border-radius: 8px; padding: 1rem; }
-.carte h3 { margin-top: 0; text-transform: capitalize; }
-.bouton { background: var(--accent); color: #fff; border: 0; border-radius: 6px; padding: .5rem .9rem; cursor: pointer; }
-.bouton.secondaire { background: #fff; color: var(--accent); border: 1px solid var(--accent); }
-.champ { display: block; width: 100%; padding: .5rem; margin: .25rem 0 .75rem; border: 1px solid var(--bord); border-radius: 6px; font: inherit; }
-.etat-chargement { color: var(--discret); font-style: italic; }
-.etat-erreur { color: var(--erreur); border: 1px solid var(--erreur); border-radius: 6px; padding: .75rem; }
-.message-erreur { color: var(--erreur); font-size: .9rem; margin: -.5rem 0 .75rem; }
-.discret { color: var(--discret); font-size: .9rem; }
+
+/* En-tête et navigation */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.75rem 1.5rem;
+  background: var(--carte);
+  border-bottom: 3px solid var(--orange);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo-lien {
+  display: inline-flex;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+.nav-principal {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.nav-lien {
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  color: var(--marine);
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.15s, color 0.15s;
+}
+
+.nav-lien:hover {
+  background: var(--fond);
+}
+
+.nav-lien.active {
+  background: var(--marine);
+  color: #fff;
+}
+
+/* Contenu */
+.contenu {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+h1 {
+  color: var(--marine);
+  margin: 0.5rem 0 1.25rem;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+}
+
+h2 {
+  color: var(--marine);
+  margin-top: 2rem;
+}
+
+a {
+  color: var(--marine);
+}
+
+/* Cartes d'articles */
+.grille-articles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.carte {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  padding: 1.1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 3px rgba(11, 31, 58, 0.06);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.carte:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(11, 31, 58, 0.1);
+}
+
+.carte-titre {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  text-transform: capitalize;
+}
+
+.carte-titre a {
+  text-decoration: none;
+}
+
+.carte-titre a:hover {
+  color: var(--orange-fonce);
+  text-decoration: underline;
+}
+
+.carte-extrait {
+  color: var(--gris);
+  margin: 0 0 1rem;
+  flex: 1;
+}
+
+/* Boutons */
+.bouton {
+  align-self: flex-start;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--orange);
+  border-radius: 999px;
+  background: var(--orange);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.bouton:hover {
+  background: var(--orange-fonce);
+  border-color: var(--orange-fonce);
+}
+
+.bouton-actif {
+  background: #fff;
+  color: var(--orange-fonce);
+}
+
+.bouton-actif:hover {
+  background: #fff4ec;
+  color: var(--orange-fonce);
+}
+
+.bouton-secondaire {
+  background: transparent;
+  color: var(--marine);
+  border-color: var(--bordure);
+}
+
+.bouton-secondaire:hover {
+  background: var(--fond);
+  border-color: var(--marine);
+}
+
+/* Champs */
+.champ {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  font: inherit;
+  background: #fff;
+}
+
+.champ:focus {
+  outline: 2px solid var(--orange);
+  border-color: transparent;
+}
+
+.recherche {
+  max-width: 420px;
+  margin-bottom: 1.5rem;
+}
+
+/* Messages */
+.message-etat {
+  padding: 1rem;
+  color: var(--gris);
+  font-style: italic;
+}
+
+.message-erreur,
+.erreur {
+  background: #fdecea;
+  color: #a12622;
+  border-left: 4px solid #d93025;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+}
+
+/* Article détaillé */
+.article-detail > p {
+  font-size: 1.05rem;
+  max-width: 70ch;
+}
+
+/* Commentaires */
+.commentaires {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.commentaire {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-left: 4px solid var(--orange);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+}
+
+.formulaire {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 560px;
+}
+
+.formulaire textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+/* Listes simples (auteurs, favoris) */
+.liste-simple {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.ligne {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Page 404 */
+.page-404 {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .site-header {
+    justify-content: center;
+    padding: 0.6rem 0.75rem;
+  }
+  .nav-lien {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.95rem;
+  }
+  .contenu {
+    padding: 1rem 0.9rem 2.5rem;
+  }
+}
