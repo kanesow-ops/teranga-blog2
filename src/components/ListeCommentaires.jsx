@@ -1,12 +1,12 @@
 function ListeCommentaires({ commentaires }) {
   if (commentaires.length === 0) {
-    return <p>Aucun commentaire pour le moment.</p>;
+    return <p className="message-etat">Aucun commentaire pour le moment.</p>;
   }
 
   return (
-    <ul>
+    <ul className="commentaires">
       {commentaires.map((c) => (
-        <li key={c.id}>
+        <li key={c.id} className="commentaire">
           <strong>{c.name}</strong> : {c.body}
         </li>
       ))}

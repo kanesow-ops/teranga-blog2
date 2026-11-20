@@ -2,11 +2,11 @@ import ArticleCard from "./ArticleCard";
 
 function ListeArticles({ articles, favoris, onToggleFavori }) {
   if (articles.length === 0) {
-    return <p>Aucun article ne correspond à la recherche.</p>;
+    return <p className="message-etat">Aucun article ne correspond à la recherche.</p>;
   }
 
   return (
-    <div>
+    <div className="grille-articles">
       {articles.map((article) => (
         <ArticleCard
           key={article.id}

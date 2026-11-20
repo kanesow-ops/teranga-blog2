@@ -7,12 +7,15 @@ function ArticleCard({ article, estFavori, onToggleFavori }) {
       : article.body;
 
   return (
-    <article>
-      <h3>
+    <article className="carte">
+      <h3 className="carte-titre">
         <Link to={`/articles/${article.id}`}>{article.title}</Link>
       </h3>
-      <p>{extrait}</p>
-      <button onClick={() => onToggleFavori(article)}>
+      <p className="carte-extrait">{extrait}</p>
+      <button
+        className={estFavori ? "bouton bouton-actif" : "bouton"}
+        onClick={() => onToggleFavori(article)}
+      >
         {estFavori ? "Retirer des favoris" : "Ajouter aux favoris"}
       </button>
     </article>

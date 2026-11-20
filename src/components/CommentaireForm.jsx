@@ -24,20 +24,28 @@ function CommentaireForm({ onAjouter }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="formulaire" onSubmit={handleSubmit}>
       <input
+        className="champ"
         type="text"
         placeholder="Votre nom"
         value={nom}
         onChange={(e) => setNom(e.target.value)}
       />
       <textarea
+        className="champ"
         placeholder="Votre message"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
-      {erreur && <p role="alert">{erreur}</p>}
-      <button type="submit">Publier</button>
+      {erreur && (
+        <p role="alert" className="erreur">
+          {erreur}
+        </p>
+      )}
+      <button type="submit" className="bouton">
+        Publier
+      </button>
     </form>
   );
 }
